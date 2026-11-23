@@ -1,0 +1,18 @@
+services:
+  logbook:
+    build: .
+    container_name: sailor-logbook
+    ports:
+      - "8000:8000"
+    volumes:
+      # SQLite database — survives container restarts and rebuilds
+      - logbook-data:/app/data
+      # Uploaded GPX files — same
+      - logbook-uploads:/app/uploads
+    restart: unless-stopped
+    environment:
+      - PYTHONUNBUFFERED=1
+
+volumes:
+  logbook-data:
+  logbook-uploads:
